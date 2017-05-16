@@ -1,9 +1,12 @@
 var express = require('express');
+var path = require('path');
 var app = express();
 var port = process.env.PORT || 8080;
 
 const pg = require('pg');
 const connectionString = "postgres://xnlomexwcabcyb:1223ebf0b72b0e63eeccbf6e27982dc14f0ad8a0d8b711ca51e3387b42e19243@ec2-23-21-235-142.compute-1.amazonaws.com:5432/ddhq7qi5qe8rcr?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
+app.use(express.static(path.join(__dirname,'/views')));
 
 const client = new pg.Client(connectionString);
 client.connect();
@@ -22,7 +25,7 @@ client.connect();
 
 
 app.get('/', function(req, res){
-	res.send("Home");
+	res.sendFile("/index.html");
 })
 app.listen(port,function(){
 			console.log('Example app listening on port 8080!');
