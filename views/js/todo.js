@@ -20,7 +20,7 @@ $(document).ready(function(e) {
 					var taskName = $('#task').val();
 					if (taskName === '') { return false; }
 					var xfer = {
-                        task:taskName;
+                        task:taskName
                     };
 					$(this).dialog('close');
 					$.ajax({
@@ -28,26 +28,26 @@ $(document).ready(function(e) {
                         url: '/create',
                         dataType: 'json',
                         data: xfer,
-                    error: function(data)
-                    {
-                        alert("error addtask");
-                    },
-                    success: function (data)
-                    {
+                        error: function(data)
+                        {
+                            alert("error addtask");
+                        },
+                        success: function (data)
+                        {
 
-					var taskHTML = '<li><span class="done">%</span>';
-					taskHTML += '<span class="delete">x</span>';
-					taskHTML += '<span class="edit">+</span>';
-					taskHTML += '<span class="task"></span></li>';
-					var $newTask = $(taskHTML);
-					$newTask.find('.task').text(taskName);''
-					$newTask.hide();
-					$('#todo-list').prepend($newTask);
-					$newTask.show('clip',250).effect('highlight',1000);
-					$("#jdialog_box_content").empty();
-					
-					$('#task').val("");
-                    }
+                        var taskHTML = '<li><span class="done">%</span>';
+                        taskHTML += '<span class="delete">x</span>';
+                        taskHTML += '<span class="edit">+</span>';
+                        taskHTML += '<span class="task"></span></li>';
+                        var $newTask = $(taskHTML);
+                        $newTask.find('.task').text(taskName);''
+                        $newTask.hide();
+                        $('#todo-list').prepend($newTask);
+                        $newTask.show('clip',250).effect('highlight',1000);
+                        $("#jdialog_box_content").empty();
+                        
+                        $('#task').val("");
+                        }
                     });
 					
 
