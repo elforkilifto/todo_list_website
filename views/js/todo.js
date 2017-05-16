@@ -89,14 +89,36 @@ $(document).ready(function(e) {
 		});
 
 		$('#todo-list').on('click', '.done', function() {
+            var taskItem = $(this).parent('li');
+            var taskName = taskItem.find('.task').text();
+            var identifier = taskItem.find('.id').text();
+            var xfer = {
+                id:identifier,
+                task:taskName,
+                status:1
+            };
+            
+            $.ajax({
+                method:'put',
+                url: '/update',
+                dataType: 'json',
+                data: xfer,
+                error: function(data)
+                {
+                    alert("error update");
+                },
+                success: function (data)
+                {
 
-			var $taskItem = $(this).parent('li');
-			$taskItem.slideUp(250, function() {
-				var $this = $(this);
-				$this.detach();
-				$('#completed-list').prepend($this);
-				$this.slideDown();
-			});
+                    taskItem.slideUp(250, function() {
+                        var $this = $(this);
+                        $this.detach();
+                        $('#completed-list').prepend($this);
+                        $this.slideDown();
+                    });
+                }
+            });
+
 		});
 
 		$('#todo-list').on('click', '.edit', function() {
