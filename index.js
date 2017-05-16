@@ -52,8 +52,8 @@ app.use(function (req, res, next) {
 
 app.post('/create', function(req,res){
     var temp = req.body.task;
-    
-    var query = client.query("INSERT INTO todo ()VALUES($1,$2)",[temp,0]);
+    console.log(temp);    
+    var query = client.query("INSERT INTO todo (todo_name,status) VALUES ($1,$2)",[temp,0]);
     
     query.on('error',function(){
         res.status("500").send("Server Error");
