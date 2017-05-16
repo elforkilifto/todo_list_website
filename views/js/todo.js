@@ -178,8 +178,7 @@ $(document).ready(function(e) {
 			buttons : {
 				"Edit Task" : function () {
 					
-					$('#newEdit').val('');
-					$(this).dialog('close');
+					
                     var taskName = deletedTask.find('.task').text();
                     var identifier = deletedTask.find('.id').text();
                     var edited = $('#newEdit').val();
@@ -189,7 +188,10 @@ $(document).ready(function(e) {
                         task:taskName,
                         newName:edited
                     };
+                    
+                    $('#newEdit').val('');
 					$(this).dialog('close');
+					
 					$.ajax({
                         method:'put',
                         url: '/updatetaskname',
@@ -197,7 +199,7 @@ $(document).ready(function(e) {
                         data: xfer,
                         error: function(data)
                         {
-                            alert("error delete");
+                            alert("error updatename);
                         },
                         success: function (data)
                         {
