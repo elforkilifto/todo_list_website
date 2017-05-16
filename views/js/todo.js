@@ -186,7 +186,7 @@ $(document).ready(function(e) {
 					
                     var xfer = {
                         id:identifier,
-                        task:taskName
+                        task:taskName,
                         newName:edited
                     };
 					$(this).dialog('close');
