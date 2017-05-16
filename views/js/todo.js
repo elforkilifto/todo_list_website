@@ -199,7 +199,7 @@ $(document).ready(function(e) {
                         },
                         success: function (data)
                         {
-                        deletedTask.find('.task').text(Edited);
+                        deletedTask.find('.task').text(edited);
                         }
                     });
 
