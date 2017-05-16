@@ -95,7 +95,7 @@ app.put('/update', function(req,res){
     var status = req.body.status;
     console.log(temp);
     console.log(id);    
-    var query = client.query("UPDATE todo SET status = $3 WHERE id = $1 AND todo_name = $2"[id,temp,status]);
+    var query = client.query("UPDATE todo SET status = $3 WHERE id = $1 AND todo_name = $2",[id,temp,status]);
     
     query.on('error',function(){
         res.status("500").send("Server Error"); 
@@ -104,13 +104,14 @@ app.put('/update', function(req,res){
         res.json("SUccess");
     });
 });
+
 app.put('/updatetaskname', function(req,res){
     var temp = req.body.task;
     var id = req.body.id;
-    var newname = req.body.newName;
+
     console.log(temp);
     console.log(id);    
-    var query = client.query("UPDATE todo SET todo_name = $3 WHERE id = $1 AND todo_name = $2"[id,temp,newname]);
+    var query = client.query("UPDATE todo SET todo_name = $3 WHERE id = $1",[id,temp]);
     
     query.on('error',function(){
         res.status("500").send("Server Error"); 

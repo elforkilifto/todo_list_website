@@ -177,17 +177,12 @@ $(document).ready(function(e) {
 			modal : true, autoOpen : false,
 			buttons : {
 				"Edit Task" : function () {
-					
-                    var taskName = deletedTask.find('.task').text();
                     var identifier = deletedTask.find('.id').text();
                     var edited = $('#newEdit').val();
-                    
-                    alert(taskName);
-					
+
                     var xfer = {
                         id:identifier,
-                        task:taskName,
-                        newName:edited
+                        task:edited
                     };
                     
                     $('#newEdit').val('');
