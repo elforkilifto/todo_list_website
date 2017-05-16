@@ -1,0 +1,8 @@
+
+DROP TABLE IF EXISTS todo;
+CREATE TABLE todo
+(
+    id SERIAL PRIMARY KEY,
+    todo_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    status integer NOT NULL
+);
