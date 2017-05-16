@@ -182,7 +182,7 @@ $(document).ready(function(e) {
 					$(this).dialog('close');
                     var taskName = deletedTask.find('.task').text();
                     var identifier = deletedTask.find('.id').text();
-                    var Edited = $('#newEdit').val();
+                    var edited = $('#newEdit').val();
 					
                     var xfer = {
                         id:identifier,
