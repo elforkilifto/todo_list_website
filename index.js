@@ -90,7 +90,19 @@ app.get('/getall', function(req,res){
 //Update
 
 app.put('/update', function(req,res){
-    res.send("update");
+    var temp = req.body.task;
+    var id = req.body.id;
+    var status = req.body.status;
+    console.log(temp);
+    console.log(id);    
+    var query = client.query("UPDATE todo SET status = $3 WHERE id = $1 AND todo_name = $2",[id,temp,status]);
+    
+    query.on('error',function(){
+        res.status("500").send("Server Error"); 
+    });
+    query.on('end',function(){
+        res.json("SUccess");
+    });
 });
 
 //Delete
