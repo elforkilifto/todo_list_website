@@ -16,19 +16,19 @@ $(document).ready(function(e) {
 
             $.each(data,function(i,data){
             if(data.status == 0){
-            var taskHTML = '<li><span class="done">%</span>';
-            taskHTML += '<span class="delete">x</span>';
-            taskHTML += '<span class="edit">+</span>';
-            taskHTML += '<span class="task">'+data.todo_name+'</span>';
-            taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
-            $('#todo-list').append(taskHTML);
+                var taskHTML = '<li><span class="done">%</span>';
+                taskHTML += '<span class="delete">x</span>';
+                taskHTML += '<span class="edit">+</span>';
+                taskHTML += '<span class="task">'+data.todo_name+'</span>';
+                taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
+                $('#todo-list').append(taskHTML);
             }else{
-            var taskHTML = '<li><span class="done">%</span>';
-            taskHTML += '<span class="delete">x</span>';
-        
-            taskHTML += '<span class="task">'+data.todo_name+'</span>';
-            taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
-            $('#completed-list').append(taskHTML);
+                var taskHTML = '<li><span class="done">%</span>';
+                taskHTML += '<span class="delete">x</span>';
+            
+                taskHTML += '<span class="task">'+data.todo_name+'</span>';
+                taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
+                $('#completed-list').append(taskHTML);
             }
             
             });
@@ -168,9 +168,6 @@ $(document).ready(function(e) {
                         }
                     });
 
-					
-					
-
 				},
 				"Cancel" : function () { $(this).dialog('close'); }
 			}
@@ -180,11 +177,36 @@ $(document).ready(function(e) {
 			modal : true, autoOpen : false,
 			buttons : {
 				"Edit Task" : function () {
-
-					var Edited = $('#newEdit').val();
-					deletedTask.find('.task').text(Edited);
+					
 					$('#newEdit').val('');
 					$(this).dialog('close');
+                    var taskName = deletedTask.find('.task').text();
+                    var identifier = deletedTask.find('.id').text();
+                    var Edited = $('#newEdit').val();
+					
+                    var xfer = {
+                        id:identifier,
+                        task:taskName
+                        newName:edited
+                    };
+					$(this).dialog('close');
+					$.ajax({
+                        method:'put',
+                        url: '/updatetaskname',
+                        dataType: 'json',
+                        data: xfer,
+                        error: function(data)
+                        {
+                            alert("error delete");
+                        },
+                        success: function (data)
+                        {
+                        deletedTask.find('.task').text(Edited);
+                        }
+                    });
+
+                    
+				
 					
 
 				},
