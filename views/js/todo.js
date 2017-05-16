@@ -181,6 +181,8 @@ $(document).ready(function(e) {
                     var taskName = deletedTask.find('.task').text();
                     var identifier = deletedTask.find('.id').text();
                     var edited = $('#newEdit').val();
+                    
+                    alert(taskName);
 					
                     var xfer = {
                         id:identifier,
