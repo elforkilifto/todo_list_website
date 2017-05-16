@@ -111,7 +111,7 @@ app.put('/updatetaskname', function(req,res){
 
     console.log(temp);
     console.log(id);    
-    var query = client.query("UPDATE todo SET todo_name = $3 WHERE id = $1",[id,temp]);
+    var query = client.query("UPDATE todo SET todo_name = $2 WHERE id = $1",[id,temp]);
     
     query.on('error',function(){
         res.status("500").send("Server Error"); 
