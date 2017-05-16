@@ -69,7 +69,8 @@ $(document).ready(function(e) {
                         var taskHTML = '<li><span class="done">%</span>';
                         taskHTML += '<span class="delete">x</span>';
                         taskHTML += '<span class="edit">+</span>';
-                        taskHTML += '<span class="task"></span></li>';
+                        taskHTML += '<span class="task"></span>';
+                        taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
                         var $newTask = $(taskHTML);
                         $newTask.find('.task').text(taskName);''
                         $newTask.hide();

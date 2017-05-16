@@ -53,13 +53,17 @@ app.use(function (req, res, next) {
 app.post('/create', function(req,res){
     var temp = req.body.task;
     console.log(temp);    
-    var query = client.query("INSERT INTO todo (todo_name,status) VALUES ($1,$2)",[temp,0]);
+    var query = client.query("INSERT INTO todo (todo_name,status) VALUES ($1,$2) RETURNING id",[temp,0]);
+    var result;
     
+    query.on('row',function(row){
+       result = row;
+    });
     query.on('error',function(){
         res.status("500").send("Server Error");
     });
     query.on('end',function(){
-        res.json("SUccess");
+        res.json(result);
     });
     
 });
