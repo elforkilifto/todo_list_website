@@ -66,8 +66,21 @@ app.post('/create', function(req,res){
 
 //Read
 
-app.get('/read', function(req,res){
-    res.send("read");
+app.get('/getall', function(req,res){
+    
+    var query = client.query("SELECT * FROM todo;");
+    var result = [];
+    
+    query.on('row',function(row){
+       result.push(row);
+    });
+    
+    query.on('error',function(){
+        res.status("500").send("Server Error");
+    });
+    query.on('end',function(){
+        res.json(result);
+    });
 });
 
 //Update

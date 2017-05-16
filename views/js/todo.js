@@ -3,6 +3,37 @@ $(document).ready(function(e) {
 
  var deletedTask = null;
 
+    $.ajax({
+        method:'get',
+        url: '/getall',
+        dataType: 'json',
+        error: function(data)
+        {
+        alert("error getall");
+        },
+        success: function (data)
+        {
+
+            $.each(data,function(i,data){
+            if(data.status == 0){
+            var taskHTML = '<li><span class="done">%</span>';
+            taskHTML += '<span class="delete">x</span>';
+            taskHTML += '<span class="edit">+</span>';
+            taskHTML += '<span class="task">'+data.todo_name+'</span>';
+            taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
+            $('#todo-list').append(taskHTML);
+            }else{
+            var taskHTML = '<li><span class="done">%</span>';
+            taskHTML += '<span class="delete">x</span>';
+        
+            taskHTML += '<span class="task">'+data.todo_name+'</span>';
+            taskHTML += '<span style = "display:none" class="id">'+data.id+'</span></li>';
+            $('#completed-list').append(taskHTML);
+            }
+            
+            });
+        }
+    });
 
 	$('#add-todo').button({
 		icons: { primary: "ui-icon-circle-plus" }}).click(
