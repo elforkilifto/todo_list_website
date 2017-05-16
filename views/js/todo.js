@@ -121,9 +121,31 @@ $(document).ready(function(e) {
 			modal : true, autoOpen : false,
 			buttons : {
 				"Delete Task" : function () {
+				var taskName = deletedTask.find('.task').text();
+                var identifier = deletedTask.find('.id').text();
+                    var xfer = {
+                        id:identifier,
+                        task:taskName
+                    };
+					$(this).dialog('close');
+					$.ajax({
+                        method:'delete',
+                        url: '/delete',
+                        dataType: 'json',
+                        data: xfer,
+                        error: function(data)
+                        {
+                            alert("error delete");
+                        },
+                        success: function (data)
+                        {
 
-					deletedTask.effect('puff', function(){deletedTask.remove();});
-					 $(this).dialog('close');
+                        deletedTask.effect('puff', function(){deletedTask.remove();});
+                        $(this).dialog('close');
+                        }
+                    });
+
+					
 					
 
 				},

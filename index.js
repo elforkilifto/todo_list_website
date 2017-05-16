@@ -91,5 +91,17 @@ app.put('/update', function(req,res){
 
 //Delete
 app.delete('/delete', function(req,res){
-    res.send("delete");
+    var temp = req.body.task;
+    var id = req.body.id;
+    console.log(temp);
+    console.log(id);    
+    var query = client.query("DELETE FROM todo WHERE id = $1 AND todo_name = $2",[id,temp]);
+    
+    query.on('error',function(){
+        res.status("500").send("Server Error");
+    });
+    query.on('end',function(){
+        res.json("SUccess");
+    });
+    
 });
