@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyparser = require('body-parser')
 var path = require('path');
 var app = express();
 var port = process.env.PORT || 8080;
@@ -7,6 +8,8 @@ const pg = require('pg');
 const connectionString = "postgres://xnlomexwcabcyb:1223ebf0b72b0e63eeccbf6e27982dc14f0ad8a0d8b711ca51e3387b42e19243@ec2-23-21-235-142.compute-1.amazonaws.com:5432/ddhq7qi5qe8rcr?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 app.use(express.static(path.join(__dirname,'/views')));
+app.use(bodyparser.urlencoded());
+app.use(bodyparser.json());
 
 const client = new pg.Client(connectionString);
 client.connect();
@@ -47,10 +50,18 @@ app.use(function (req, res, next) {
 
 //Create
 
-app.get('/create', function(req,res){
-    var temp = "clean";
-    client.query("INSERT INTO todo VALUES('"+temp+"',0)");
-    res.send("200");
+app.post('/create', function(req,res){
+    var temp = req.body.task;
+    
+    var query = client.query("INSERT INTO todo ()VALUES($1,$2)",[temp,0]);
+    
+    query.on('error',function(){
+        res.status("500").send("Server Error");
+    });
+    query.on('end',function(){
+        res.json("SUccess");
+    });
+    
 });
 
 //Read
